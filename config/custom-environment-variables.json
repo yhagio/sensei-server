@@ -1,0 +1,20 @@
+{
+  "app_host": "APP_HOST",
+  "app_port": "APP_PORT",
+  "jwt": {
+    "secret": "JWT_SECRET",
+    "expiresin": "JWT_EXPIRES_IN"
+  },
+  "typeorm": {
+    "type": "APP_DB_TYPE",
+    "host": "APP_DB_HOST",
+    "port": "APP_DB_PORT",
+    "db": "APP_DB_DB",
+    "user": "APP_DB_USER",
+    "password": "APP_DB_PASSWORD",
+    "logging": "APP_DB_LOGGING",
+    "sync": "APP_DB_SYNC"
+  },
+  "seed": "SEED",
+  "nodeEnv": "NODE_ENV"
+}

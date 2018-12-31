@@ -1,0 +1,59 @@
+{
+  "name": "sensei-server",
+  "version": "0.1.0",
+  "description": "Sensei server",
+  "main": "dist/app.js",
+  "scripts": {
+    "-------- PROD --------------": "",
+    "prod": "export NODE_ENV=produtcion && npm run build && node dist/app.js",
+    "-------- DEV ---------------": "",
+    "dev": "export NODE_ENV=development && npm run build && node dist/app.js",
+    "watch-tsc": "tsc -w",
+    "watch-node": "export NODE_ENV=development && nodemon dist/app.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-tsc\" \"npm run watch-node\"",
+    "-------- BUILD -------------": "",
+    "build": "npm run format && npm run lint && tsc",
+    "-------- TEST --------------": "",
+    "lint": "tslint 'src/**/*.ts'",
+    "fixlint": "tslint 'src/**/*.ts' --fix",
+    "format": "prettier --write \"{src,test}/**/*.ts\"",
+    "test": "export NODE_ENV=test && npm run format && npm run lint && nyc mocha"
+  },
+  "keywords": [
+    "Node.js",
+    "Typescript",
+    "Express"
+  ],
+  "author": "Yuichi Hagio",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "config": "^3.0.1",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "pg": "^7.7.1",
+    "typeorm": "^0.2.9",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/body-parser": "^1.17.0",
+    "@types/compression": "^0.0.36",
+    "@types/config": "^0.0.34",
+    "@types/express": "^4.16.0",
+    "@types/helmet": "^0.0.42",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/node": "^10.12.18",
+    "concurrently": "^4.1.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "nyc": "^13.1.0",
+    "prettier": "^1.15.3",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  }
+}

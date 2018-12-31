@@ -1,0 +1,32 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "max-line-length": [
+      true,
+      120
+    ],
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "prefer-const": true,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "never",
+        "singleline": "never"
+      }
+    ]
+  }
+}

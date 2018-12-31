@@ -1,0 +1,33 @@
+{
+  "app_host": "localhost",
+  "app_port": 4000,
+  "web": {
+    "errorStatus": {
+      "OperationError": 503,
+      "InternalError": 500,
+      "NotFoundError": 404,
+      "ForbiddenError": 403,
+      "UnauthorizedError": 401,
+      "InvalidError": 400
+    }
+  },
+  "logger": {
+    "level": "info"
+  },
+  "jwt": {
+    "secret": "jh489384fdh2332e8hfwjhs",
+    "expiresin": "1d"
+  },
+  "typeorm": {
+    "type": "postgres",
+    "host": "localhost",
+    "port": "5432",
+    "db": "sensei_dev",
+    "user": "sensei_dev_user",
+    "password": "password",
+    "logging": true,
+    "sync": true
+  },
+  "seed": true,
+  "nodeEnv": "development"
+}

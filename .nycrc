@@ -1,0 +1,36 @@
+{
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 90,
+    "statements": 90,
+    "functions": 90,
+    "branches": 90,
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "src/**/*.d.ts",
+        "src/app.ts",
+        "src/seed/*",
+        "src/shared/constants.ts",
+        "src/domain/entity/*",
+        "src/**/*.interface.ts",
+        "src/infra/typeorm/db.ts"
+    ],
+    "extension": [
+        ".ts"
+    ],
+    "reporter": [
+        "lcov",
+        "text",
+        "text-summary"
+    ],
+    "all": true,
+    "sourceMap": true,
+    "instrument": true,
+    "cache": false,
+    "require": [
+        "ts-node/register",
+        "source-map-support/register"
+    ]
+}

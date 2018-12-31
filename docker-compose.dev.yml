@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  appdb:
+    image: 'postgres:10.5'
+    container_name: appdb
+    volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  server:
+    container_name: server
+    build:
+      dockerfile: ./Dockerfile.dev
+      context: ./
+    volumes:
+      - ./node_modules
+      - .:/app
+    environment:
+      - APP_DB_TYPE=postgres
+      - APP_DB_HOST=appdb
+      - APP_DB_PORT=5432
+      - APP_DB_DB=dev_sensei
+      - APP_DB_USER=dev_user
+      - APP_DB_PASSWORD=password
+      - APP_DB_SYNC=true
+      - JWT_SECRET=dsf21124j32h487232344fds
+      - JWT_EXPIRES_IN=1d
+      - NODE_ENV=development
+      - SEED=true
+    ports:
+      - '4000:4000'
