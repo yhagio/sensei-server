@@ -4,6 +4,8 @@
 
 # Sensei Server
 
+- Sample backend server built with Node.js, Typescript, Express, TypeORM, Postgres stack
+
 ## Start 🚀
 
 Start Postgres and set up
@@ -46,12 +48,12 @@ docker-compose -f docker-compose.dev.yml up
 - [x] Basic CRUD API for Courses
 - [x] User Authentication (JWT)
 - [x] Protected routes middleware
-- [ ] LICENSE
+- [x] LICENSE
+- [x] Circle CI
+- [x] Codecov
 - [ ] Stripe integration
 - [ ] Unit tests
 - [ ] Integration tests
-- [ ] Circle CI
-- [ ] Codecov
 - [ ] Deployment (Heroku)
 
 
@@ -71,6 +73,7 @@ Prefix: `/api`
 
 
 **...in progress**
+
 |Route|Method|Description|
 |---|---|---|
 |/forgot_password|POST||
