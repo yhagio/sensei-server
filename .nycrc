@@ -21,6 +21,7 @@
         ".ts"
     ],
     "reporter": [
+        "json",
         "lcov",
         "text",
         "text-summary"

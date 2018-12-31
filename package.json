@@ -17,8 +17,7 @@
     "lint": "tslint 'src/**/*.ts'",
     "fixlint": "tslint 'src/**/*.ts' --fix",
     "format": "prettier --write \"{src,test}/**/*.ts\"",
-    "test": "export NODE_ENV=test && npm run format && npm run lint && nyc mocha",
-    "posttest": "nyc report --reporter=json"
+    "test": "export NODE_ENV=test && npm run format && npm run lint && nyc mocha"
   },
   "keywords": [
     "Node.js",
