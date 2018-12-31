@@ -21,7 +21,7 @@ import UsersReaderStore from './dataAccess/users/users.reader.store';
 import UsersWriterStore from './dataAccess/users/users.writer.store';
 import AuthService from './app/auth/auth.service';
 import CourseReadHandler from './web/course.read.handler';
-import CourseWriteHandler from './course.write.handler';
+import CourseWriteHandler from './web/course.write.handler';
 import CoursesWriter from './app/courses/courses.writer';
 import CoursesWriterStore from './dataAccess/courses/courses.writer.store';
 import CoursesReader from './app/courses/courses.reader';
