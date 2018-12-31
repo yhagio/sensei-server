@@ -1,8 +1,8 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import { Logger } from '../../shared/logger/logger';
+import { ILogger } from '../../shared/logger/logger';
 import { IJsonFormatter } from './json.formatter';
 
-export default function errorHandler(logger: Logger): ErrorRequestHandler {
+export default function errorHandler(logger: ILogger): ErrorRequestHandler {
   return (
     err: any,
     _: Request,

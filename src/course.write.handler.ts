@@ -1,7 +1,7 @@
 import { Request, NextFunction } from 'express';
-import { IJsonFormatter } from './utils/json.formatter';
-import CoursesWriter from '../app/courses/courses.writer';
-import { User } from '../domain/entity/User';
+import { IJsonFormatter } from './web/utils/json.formatter';
+import CoursesWriter from './app/courses/courses.writer';
+import { User } from './domain/entity/User';
 
 export interface IWithUser extends Request {
   user?: User;
