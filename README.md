@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/yhagio/sensei-server/branch/master/graph/badge.svg)](https://codecov.io/gh/yhagio/sensei-server)
+[![Build Status](https://travis-ci.org/yhagio/sensei-server.svg?branch=master)](https://travis-ci.org/yhagio/sensei-server)
+
 # Sensei Server
 
 ## Start 🚀
