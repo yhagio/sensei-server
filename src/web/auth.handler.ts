@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 
 import { IJsonFormatter } from './utils/json.formatter';
@@ -76,7 +76,7 @@ export default class AuthHandler {
       let user;
       try {
         payload = await this.authService.verifyToken(token);
-        user = await this.usersReader.getById(payload.id);
+        user = await this.usersReader.getAccount(payload.id);
       } catch (e) {
         this.logger.error(e);
         throw new UnauthorizedError('Not Authorized');
@@ -91,5 +91,28 @@ export default class AuthHandler {
     } catch (err) {
       next(err);
     }
+  }
+
+  public async isLoggedInContext({ req }: { req: IWithUser }): Promise<object> {
+    let user;
+    try {
+      const tokenStr = req.headers.authorization;
+      const token = tokenStr ? tokenStr.split('Bearer ')[1].trim() : '';
+      if (!token) {
+        return {};
+      }
+      const payload = await this.authService.verifyToken(token);
+      user = await this.usersReader.getAccount(payload.id);
+    } catch (e) {
+      this.logger.error(e);
+      return {};
+    }
+
+    if (!user) {
+      return {};
+    }
+
+    req.user = user;
+    return { user };
   }
 }

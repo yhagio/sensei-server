@@ -10,14 +10,12 @@ interface IReqWithUser extends Request {
 class UserHandler {
   constructor(private usersReader: UsersReader) {}
 
-  public async getById(
+  public async getAccount(
     req: IReqWithUser,
     res: Response & IJsonFormatter,
     next: NextFunction
   ): Promise<void> {
     try {
-      // const { id } = req;
-      // const result = await this.usersReader.getById(id);
       res.formattedJson(undefined, req.user);
     } catch (err) {
       next(err);

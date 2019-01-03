@@ -18,5 +18,13 @@ export interface ICourse {
   longdesc?: string;
   coverurl?: string;
   price?: number;
-  author: User;
+  author?: User;
+}
+
+export interface ICourseCreate {
+  title: string;
+  shortdesc: string;
+  longdesc?: string;
+  coverurl?: string;
+  price?: number;
 }

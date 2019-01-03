@@ -1,20 +1,21 @@
-import express, { Router, Response, Request, NextFunction } from 'express';
+import express, { Router } from 'express';
 import bodyParser from 'body-parser';
 import config from 'config';
 import compression from 'compression';
 import helmet from 'helmet';
 import winston from 'winston';
 import { createConnection, Connection } from 'typeorm';
+import { ApolloServer } from 'apollo-server-express';
 
 import { Logger } from './shared/logger/logger';
 import { IConfig } from './shared/config/config';
 import errorHandler from './web/utils/error.handler';
-import { jsonFormatter, IJsonFormatter } from './web/utils/json.formatter';
+import { jsonFormatter } from './web/utils/json.formatter';
 
 import UserHandler from './web/user.handler';
 import UsersReader from './app/users/users.reader';
 import SetTypeORM from './infra/typeorm/db';
-import { seedData, resetData } from './seed/seed.dev';
+// import { seedData, resetData } from './seed/seed.dev';
 import AuthHandler from './web/auth.handler';
 import UsersWriter from './app/users/users.writer';
 import UsersReaderStore from './dataAccess/users/users.reader.store';
@@ -27,16 +28,18 @@ import CoursesWriterStore from './dataAccess/courses/courses.writer.store';
 import CoursesReader from './app/courses/courses.reader';
 import CoursesReaderStore from './dataAccess/courses/courses.reader.store';
 
+import { typeDefs, resolvers } from './domain/graphql/schema.creator';
+
 const appConfig: IConfig = config;
 const typeORMConn = new SetTypeORM(appConfig).connect();
 
 createConnection(typeORMConn)
   .then(async (conn: Connection) => {
     // Seed data
-    if (appConfig.get('seed') && appConfig.get('nodeEnv') === 'development') {
-      await resetData(conn);
-      await seedData(conn);
-    }
+    // if (appConfig.get('seed') && appConfig.get('nodeEnv') === 'development') {
+    //   await resetData(conn);
+    //   await seedData(conn);
+    // }
 
     // Initialize singletons
     const logger = new Logger(
@@ -76,7 +79,9 @@ createConnection(typeORMConn)
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    // API
+    ///////////////////////////////////////////
+    //             REST API
+    ///////////////////////////////////////////
     const restRouter = Router();
 
     app.use(resJSON);
@@ -90,7 +95,7 @@ createConnection(typeORMConn)
 
     restRouter
       .route('/account')
-      .get(isLoggedIn, userHandler.getById.bind(userHandler));
+      .get(isLoggedIn, userHandler.getAccount.bind(userHandler));
 
     restRouter
       .route('/courses')
@@ -105,6 +110,25 @@ createConnection(typeORMConn)
 
     // Error handling
     app.use(errHandler);
+
+    ///////////////////////////////////////////
+    //             GraphQL API
+    ///////////////////////////////////////////
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers,
+      context: authHandler.isLoggedInContext.bind(authHandler),
+      dataSources: () =>
+        ({
+          coursesReader,
+          coursesWriter,
+          usersReader,
+          usersWriter,
+          authService
+        } as any)
+    });
+
+    server.applyMiddleware({ app });
 
     // Start Application
     app.listen(appConfig.get('app_port'), () =>
