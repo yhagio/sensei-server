@@ -1,5 +1,5 @@
 export interface IUsersReaderRepo {
-  getById(id: string): Promise<IUserAccount>;
+  getAccount(id: string): Promise<IUserAccount>;
   getByEmailWithPassword(email: string): Promise<IUserAccountWithPass>;
   getCart(): Promise<IUserAccount>;
   getPurchased(): Promise<IUserAccount>;
@@ -28,6 +28,11 @@ export interface IUserAccount {
   email: string;
   firstname?: string;
   lastname?: string;
+  confirmed?: boolean;
+}
+
+export interface IUserWithToken extends IUserAccount {
+  token: string;
 }
 
 export interface IUserAccountWithPass extends IUserAccount {

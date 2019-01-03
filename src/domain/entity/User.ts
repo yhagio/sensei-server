@@ -48,7 +48,7 @@ export class User extends BaseEntity {
   @JoinTable({ name: 'users_courses' })
   public learnings: Course[];
 
-  @Column('text')
+  @Column('text', { select: false })
   public password: string;
 
   @BeforeInsert()

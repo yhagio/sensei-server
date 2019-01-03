@@ -1,4 +1,4 @@
-import { Request, NextFunction } from 'express';
+import { Response, Request, NextFunction } from 'express';
 import { IJsonFormatter } from './utils/json.formatter';
 import CoursesWriter from '../app/courses/courses.writer';
 import { User } from '../domain/entity/User';
