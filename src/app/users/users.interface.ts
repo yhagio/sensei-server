@@ -1,13 +1,13 @@
+import { User } from '../../domain/entity/User';
+
 export interface IUsersReaderRepo {
   getAccount(id: string): Promise<IUserAccount>;
   getByEmailWithPassword(email: string): Promise<IUserAccountWithPass>;
-  getCart(): Promise<IUserAccount>;
-  getPurchased(): Promise<IUserAccount>;
 }
 
 export interface IUsersWriterRepo {
   create(user: IUserSignUp): Promise<IUserAccount>;
-  // update(user: IUserLogin): Promise<IUserAccount>;
+  update(user: IUserAccount, loggedInUser: User): Promise<void>;
   // delete(user: IUserLogin): Promise<IUserAccount>;
 }
 

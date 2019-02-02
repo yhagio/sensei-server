@@ -32,12 +32,4 @@ export default class UsersReaderStore implements IUsersReaderRepo {
       .leftJoinAndSelect('users.learnings', 'learnings')
       .getOne();
   }
-
-  public async getCart(): Promise<IUserAccount> {
-    return this.userConn.findOne();
-  }
-
-  public async getPurchased(): Promise<IUserAccount> {
-    return this.userConn.findOne();
-  }
 }

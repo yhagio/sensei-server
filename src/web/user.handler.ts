@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { IJsonFormatter } from './utils/json.formatter';
-import UsersReader from '../app/users/users.reader';
-import { IUserAccount } from '../app/users/users.interface';
+import UsersWriter from '../app/users/users.writer';
+import { User } from '../domain/entity/User';
 
 interface IReqWithUser extends Request {
-  user?: IUserAccount;
+  user?: User;
 }
 
 class UserHandler {
-  constructor(private usersReader: UsersReader) {}
+  constructor(private usersWriter: UsersWriter) {}
 
   public async getAccount(
     req: IReqWithUser,
@@ -22,26 +22,14 @@ class UserHandler {
     }
   }
 
-  public async getCart(
-    _: Request,
+  public async update(
+    req: IReqWithUser,
     res: Response & IJsonFormatter,
     next: NextFunction
   ): Promise<void> {
     try {
-      const result = await this.usersReader.getCart();
-      res.formattedJson(undefined, result);
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  public async getPurchased(
-    _: Request,
-    res: Response & IJsonFormatter,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const result = await this.usersReader.getPurchased();
+      const user = req.body;
+      const result = await this.usersWriter.update(user, req.user);
       res.formattedJson(undefined, result);
     } catch (err) {
       next(err);

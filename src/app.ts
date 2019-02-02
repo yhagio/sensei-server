@@ -52,6 +52,7 @@ createConnection(typeORMConn)
         transports: [new winston.transports.Console()]
       })
     );
+
     const resJSON = jsonFormatter(appConfig.get<any>('web.errorStatus'));
     const errHandler = errorHandler(logger);
     const authService = new AuthService(appConfig);
@@ -61,7 +62,7 @@ createConnection(typeORMConn)
     const coursesReader = new CoursesReader(new CoursesReaderStore(conn));
     const coursesWriter = new CoursesWriter(new CoursesWriterStore(conn));
 
-    const userHandler = new UserHandler(usersReader);
+    const userHandler = new UserHandler(usersWriter);
     const authHandler = new AuthHandler(
       usersWriter,
       usersReader,
@@ -95,7 +96,8 @@ createConnection(typeORMConn)
 
     restRouter
       .route('/account')
-      .get(isLoggedIn, userHandler.getAccount.bind(userHandler));
+      .get(isLoggedIn, userHandler.getAccount.bind(userHandler))
+      .put(isLoggedIn, userHandler.update.bind(userHandler));
 
     restRouter
       .route('/courses')

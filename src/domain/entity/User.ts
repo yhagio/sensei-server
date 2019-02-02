@@ -9,7 +9,8 @@ import {
   ManyToMany,
   JoinTable,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  BeforeUpdate
 } from 'typeorm';
 import { Course } from './Course';
 
@@ -52,6 +53,7 @@ export class User extends BaseEntity {
   public password: string;
 
   @BeforeInsert()
+  @BeforeUpdate()
   public async hashPasswordBeforeInsert() {
     this.password = await bcrypt.hash(this.password, 10);
   }
