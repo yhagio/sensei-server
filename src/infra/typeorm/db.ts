@@ -3,6 +3,7 @@ import { ConnectionOptions } from 'typeorm';
 import { IConfig } from '../../shared/config/config';
 import { Course } from '../../domain/entity/Course';
 import { User } from '../../domain/entity/User';
+import { Relationship } from '../../domain/entity/Relationship';
 
 export default class SetTypeORM {
   constructor(private config: IConfig) {}
@@ -17,7 +18,8 @@ export default class SetTypeORM {
       database: this.config.get<any>('typeorm.db'),
       synchronize: this.config.get<boolean>('typeorm.sync'),
       logging: this.config.get<boolean>('typeorm.logging'),
-      entities: [User, Course]
+      entities: [User, Course, Relationship],
+      migrations: []
     };
   }
 }

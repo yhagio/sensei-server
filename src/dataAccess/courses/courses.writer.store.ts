@@ -1,16 +1,13 @@
 import { Connection, Repository } from 'typeorm';
 
-import {
-  ICoursesWriterRepo,
-  ICourse
-} from '../../app/courses/courses.interface';
+import { ICoursesWriter, ICourse } from '../../app/courses/courses.interface';
 import { Course } from '../../domain/entity/Course';
 import { User } from '../../domain/entity/User';
 import { ForbiddenError } from '../../shared/error/forbidden.error';
 import { UnauthorizedError } from '../../shared/error/auth.error';
 import { NotFoundError } from '../../shared/error/not.found.error';
 
-export default class CoursesWriterStore implements ICoursesWriterRepo {
+export default class CoursesWriterStore implements ICoursesWriter {
   private coursesConn: Repository<Course>;
   constructor(conn: Connection) {
     this.coursesConn = conn.getRepository(Course);

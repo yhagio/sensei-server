@@ -1,7 +1,7 @@
-import { ICourse, ICoursesReaderRepo } from './courses.interface';
+import { ICourse, ICoursesReader } from './courses.interface';
 
 export default class CoursesReader {
-  constructor(private repository: ICoursesReaderRepo) {}
+  constructor(private repository: ICoursesReader) {}
 
   public async getAll(): Promise<ICourse[]> {
     const courses = await this.repository.getAll();

@@ -12,6 +12,14 @@ export default class UsersReaderStore implements IUsersReaderRepo {
     this.userConn = conn.getRepository(User);
   }
 
+  public async getMany(): Promise<IUserAccount[]> {
+    return this.userConn
+      .createQueryBuilder('users')
+      .leftJoinAndSelect('users.teachings', 'teachings')
+      .leftJoinAndSelect('users.learnings', 'learnings')
+      .getMany();
+  }
+
   public async getAccount(id: string): Promise<IUserAccount> {
     return this.userConn
       .createQueryBuilder('users')

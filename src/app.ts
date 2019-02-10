@@ -15,7 +15,7 @@ import { jsonFormatter } from './web/utils/json.formatter';
 import UserHandler from './web/user.handler';
 import UsersReader from './app/users/users.reader';
 import SetTypeORM from './infra/typeorm/db';
-// import { seedData, resetData } from './seed/seed.dev';
+import { seedData, resetData } from './seed/seed.dev';
 import AuthHandler from './web/auth.handler';
 import UsersWriter from './app/users/users.writer';
 import UsersReaderStore from './dataAccess/users/users.reader.store';
@@ -29,6 +29,8 @@ import CoursesReader from './app/courses/courses.reader';
 import CoursesReaderStore from './dataAccess/courses/courses.reader.store';
 
 import { typeDefs, resolvers } from './domain/graphql/schema.creator';
+import RelationshipsWriter from './app/relationships/relationships.writer';
+import RelationshipsWriterStore from './dataAccess/relationships/relationships.writer.store';
 
 const appConfig: IConfig = config;
 const typeORMConn = new SetTypeORM(appConfig).connect();
@@ -36,10 +38,10 @@ const typeORMConn = new SetTypeORM(appConfig).connect();
 createConnection(typeORMConn)
   .then(async (conn: Connection) => {
     // Seed data
-    // if (appConfig.get('seed') && appConfig.get('nodeEnv') === 'development') {
-    //   await resetData(conn);
-    //   await seedData(conn);
-    // }
+    if (appConfig.get('seed') && appConfig.get('nodeEnv') === 'development') {
+      await resetData(conn);
+      await seedData(conn);
+    }
 
     // Initialize singletons
     const logger = new Logger(
@@ -59,10 +61,17 @@ createConnection(typeORMConn)
 
     const usersReader = new UsersReader(new UsersReaderStore(conn));
     const usersWriter = new UsersWriter(new UsersWriterStore(conn));
+    const relationshipsWriter = new RelationshipsWriter(
+      new RelationshipsWriterStore(conn)
+    );
     const coursesReader = new CoursesReader(new CoursesReaderStore(conn));
     const coursesWriter = new CoursesWriter(new CoursesWriterStore(conn));
 
-    const userHandler = new UserHandler(usersWriter);
+    const userHandler = new UserHandler(
+      usersReader,
+      usersWriter,
+      relationshipsWriter
+    );
     const authHandler = new AuthHandler(
       usersWriter,
       usersReader,
@@ -109,6 +118,15 @@ createConnection(typeORMConn)
       .get(courseReadHandler.getById.bind(courseReadHandler))
       .put(isLoggedIn, courseWriteHandler.update.bind(courseWriteHandler))
       .delete(isLoggedIn, courseWriteHandler.delete.bind(courseWriteHandler));
+
+    restRouter
+      .route('/users')
+      .get(isLoggedIn, userHandler.getMany.bind(userHandler));
+
+    restRouter
+      .route('/users/:followeeId/relationships')
+      .post(isLoggedIn, userHandler.follow.bind(userHandler))
+      .delete(isLoggedIn, userHandler.unfollow.bind(userHandler));
 
     // Error handling
     app.use(errHandler);

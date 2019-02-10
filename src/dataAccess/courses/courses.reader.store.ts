@@ -1,12 +1,9 @@
 import { Connection, Repository } from 'typeorm';
 
-import {
-  ICoursesReaderRepo,
-  ICourse
-} from '../../app/courses/courses.interface';
+import { ICoursesReader, ICourse } from '../../app/courses/courses.interface';
 import { Course } from '../../domain/entity/Course';
 
-export default class CoursesReaderStore implements ICoursesReaderRepo {
+export default class CoursesReaderStore implements ICoursesReader {
   private coursesConn: Repository<Course>;
   constructor(conn: Connection) {
     this.coursesConn = conn.getRepository(Course);

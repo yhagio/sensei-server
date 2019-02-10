@@ -1,8 +1,8 @@
-import { ICourse, ICoursesWriterRepo } from './courses.interface';
+import { ICourse, ICoursesWriter } from './courses.interface';
 import { User } from '../../domain/entity/User';
 
 export default class CoursesWriter {
-  constructor(private repository: ICoursesWriterRepo) {}
+  constructor(private repository: ICoursesWriter) {}
 
   public async create(course: ICourse, user: User): Promise<ICourse> {
     const created = await this.repository.create(course, user);

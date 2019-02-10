@@ -1,11 +1,11 @@
 import { User } from '../../domain/entity/User';
 
-export interface ICoursesReaderRepo {
+export interface ICoursesReader {
   getAll(): Promise<ICourse[]>;
   getById(id: string): Promise<ICourse>;
 }
 
-export interface ICoursesWriterRepo {
+export interface ICoursesWriter {
   create(course: ICourse, user: User): Promise<ICourse>;
   update(courseId: string, course: ICourse, user: User): Promise<void>;
   delete(courseId: string, user: User): Promise<void>;

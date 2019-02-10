@@ -1,6 +1,7 @@
 import { User } from '../../domain/entity/User';
 
 export interface IUsersReaderRepo {
+  getMany(): Promise<IUserAccount[]>;
   getAccount(id: string): Promise<IUserAccount>;
   getByEmailWithPassword(email: string): Promise<IUserAccountWithPass>;
 }

@@ -27,6 +27,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
 
 Start Node.js application (Recommend to use nvm and yarn 😊)
+
 ```sh
 nvm use
 yarn
@@ -40,7 +41,6 @@ You can customize env variables in `./config`
 ```sh
 docker-compose -f docker-compose.dev.yml up
 ```
-
 
 ## TODOs 👷
 
@@ -58,29 +58,27 @@ docker-compose -f docker-compose.dev.yml up
 - [ ] Integration tests
 - [ ] Deployment (Heroku)
 
-
 ---
 
 ## Routes 🚙
 
 Prefix: `/api`
 
-|Route|Method|Description|
-|---|---|---|
-|/signup|POST||
-|/login|POST||
-|/courses|GET, POST||
-|/courses/:id|GET, PUT, DELETE||
-|/user/account|GET||
-
+| Route         | Method           | Description |
+| ------------- | ---------------- | ----------- |
+| /signup       | POST             |             |
+| /login        | POST             |             |
+| /courses      | GET, POST        |             |
+| /courses/:id  | GET, PUT, DELETE |             |
+| /user/account | GET, PUT         |             |
 
 **...in progress**
 
-|Route|Method|Description|
-|---|---|---|
-|/forgot_password|POST||
-|/courses/:id/learn|GET||
-|/user/cart|GET, POST, PUT||
-|/user/purchased|GET||
-|/teaching|GET||
-|/teaching/courses/:id/manage|GET, POST, PUT||
+| Route                        | Method         | Description |
+| ---------------------------- | -------------- | ----------- |
+| /forgot_password             | POST           |             |
+| /courses/:id/learn           | GET            |             |
+| /user/cart                   | GET, POST, PUT |             |
+| /user/purchased              | GET            |             |
+| /teaching                    | GET            |             |
+| /teaching/courses/:id/manage | GET, POST, PUT |             |
