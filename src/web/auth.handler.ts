@@ -4,14 +4,15 @@ import bcrypt from 'bcrypt';
 import { IJsonFormatter } from './utils/json.formatter';
 import UsersWriter from '../app/users/users.writer';
 import AuthService from '../app/auth/auth.service';
-import { IUserAccount } from '../app/users/users.interface';
+// import { IUserAccount } from '../app/users/users.interface';
 import UsersReader from '../app/users/users.reader';
 import { UnauthorizedError } from '../shared/error/auth.error';
 import { NotFoundError } from '../shared/error/not.found.error';
 import { Logger } from '../shared/logger/logger';
+import { IUserInstance } from '../infra/sequelize/models/user';
 
 export interface IWithUser extends Request {
-  user?: IUserAccount;
+  user?: IUserInstance;
 }
 
 export default class AuthHandler {
@@ -30,7 +31,12 @@ export default class AuthHandler {
     try {
       const newUser = await this.usersWriter.create(req.body);
       const token = await this.authService.issueToken(newUser.id);
-      res.formattedJson(undefined, { ...newUser, token });
+      res.formattedJson(undefined, {
+        id: newUser.id,
+        username: newUser.username,
+        email: newUser.email,
+        token
+      });
     } catch (err) {
       next(err);
     }

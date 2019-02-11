@@ -1,13 +1,14 @@
 import { User } from '../../domain/entity/User';
+import { IUserInstance } from '../../infra/sequelize/models/user';
 
 export interface IUsersReaderRepo {
-  getMany(): Promise<IUserAccount[]>;
-  getAccount(id: string): Promise<IUserAccount>;
-  getByEmailWithPassword(email: string): Promise<IUserAccountWithPass>;
+  getMany(): Promise<IUserInstance[]>;
+  getAccount(id: string): Promise<IUserInstance>;
+  getByEmailWithPassword(email: string): Promise<IUserInstance>;
 }
 
 export interface IUsersWriterRepo {
-  create(user: IUserSignUp): Promise<IUserAccount>;
+  create(user: IUserSignUp): Promise<IUserInstance>;
   update(user: IUserAccount, loggedInUser: User): Promise<void>;
   // delete(user: IUserLogin): Promise<IUserAccount>;
 }

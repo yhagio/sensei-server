@@ -23,10 +23,18 @@
     "host": "localhost",
     "port": "5432",
     "db": "sensei_dev",
-    "user": "sensei_dev_user",
-    "password": "password",
+    "user": "dev_user",
+    "password": "123test",
     "logging": true,
     "sync": true
+  },
+  "sequelize": {
+    "database": "sensei_dev",
+    "username": "dev_user",
+    "password": "123test",
+    "dialect": "postgres",
+    "host": "localhost",
+    "port": "5432"
   },
   "seed": true,
   "nodeEnv": "development"

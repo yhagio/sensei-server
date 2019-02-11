@@ -5,6 +5,7 @@
     "target": "es2015",
     "lib": ["es2015", "esnext.asynciterable"],
     "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "experimentalDecorators": true,
@@ -13,5 +14,5 @@
     "sourceMap": true,
     "outDir": "dist"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "config/sequelize_config.js"]
 }

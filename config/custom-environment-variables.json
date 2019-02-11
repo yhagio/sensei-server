@@ -15,6 +15,14 @@
     "logging": "APP_DB_LOGGING",
     "sync": "APP_DB_SYNC"
   },
+  "sequelize": {
+    "database": "APP_DB_DB",
+    "username": "APP_DB_USER",
+    "password": "APP_DB_PASSWORD",
+    "dialect": "APP_DB_DIALECT",
+    "host": "APP_DB_HOST",
+    "port": "APP_DB_PORT"
+  },
   "seed": "SEED",
   "nodeEnv": "NODE_ENV"
 }
