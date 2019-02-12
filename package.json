@@ -19,10 +19,11 @@
     "fixlint": "tslint 'src/**/*.ts' --fix",
     "format": "prettier --write \"{src,test}/**/*.ts\"",
     "test": "export NODE_ENV=test && npm run format && npm run lint && nyc mocha",
-    "----------------------------": "",
-    "migrate": "./node_modules/.bin/sequelize db:migrate",
-    "undo": "./node_modules/.bin/sequelize db:migrate:undo",
-    "new": "./node_modules/.bin/sequelize migration:create"
+    "---------MIGRATION----------": "",
+    "migrate": "NODE_ENV=development ./node_modules/.bin/sequelize db:migrate",
+    "rollback": "NODE_ENV=development ./node_modules/.bin/sequelize db:migrate:undo",
+    "migrate:prod": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate",
+    "rollback:prod": "NODE_ENV=production ./node_modules/.bin/sequelize db:migrate:undo"
   },
   "keywords": [
     "Node.js",

@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 import { IJsonFormatter } from './utils/json.formatter';
 import UsersWriter from '../app/users/users.writer';
 import AuthService from '../app/auth/auth.service';
-// import { IUserAccount } from '../app/users/users.interface';
 import UsersReader from '../app/users/users.reader';
 import { UnauthorizedError } from '../shared/error/auth.error';
 import { NotFoundError } from '../shared/error/not.found.error';
@@ -30,11 +29,18 @@ export default class AuthHandler {
   ): Promise<void> {
     try {
       const newUser = await this.usersWriter.create(req.body);
-      const token = await this.authService.issueToken(newUser.id);
+
+      const {
+        password,
+        createdAt,
+        updatedAt,
+        confirmed,
+        ...user
+      } = newUser.get({ plain: true });
+
+      const token = await this.authService.issueToken(user.id);
       res.formattedJson(undefined, {
-        id: newUser.id,
-        username: newUser.username,
-        email: newUser.email,
+        ...user,
         token
       });
     } catch (err) {

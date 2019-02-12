@@ -83,3 +83,12 @@ Prefix: `/api`
 | /user/purchased              | GET            |             |
 | /teaching                    | GET            |             |
 | /teaching/courses/:id/manage | GET, POST, PUT |             |
+
+## Migrations
+
+via sequelize
+
+```sh
+npm run migrate # Migrate
+npm run undo    # Rollback
+```

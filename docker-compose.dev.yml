@@ -19,9 +19,9 @@ services:
       - APP_DB_TYPE=postgres
       - APP_DB_HOST=appdb
       - APP_DB_PORT=5432
-      - APP_DB_DB=dev_sensei
+      - APP_DB_DB=sensei_dev
       - APP_DB_USER=dev_user
-      - APP_DB_PASSWORD=password
+      - APP_DB_PASSWORD=test123
       - APP_DB_SYNC=true
       - JWT_SECRET=dsf21124j32h487232344fds
       - JWT_EXPIRES_IN=1d
