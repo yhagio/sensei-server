@@ -5,10 +5,11 @@ services:
     image: 'postgres:10.5'
     container_name: appdb
     volumes:
-    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   server:
     container_name: server
+    restart: always
     build:
       dockerfile: ./Dockerfile.dev
       context: ./
@@ -16,6 +17,8 @@ services:
       - ./node_modules
       - .:/app
     environment:
+      - APP_HOST=localhost
+      - APP_PORT=4000
       - APP_DB_TYPE=postgres
       - APP_DB_HOST=appdb
       - APP_DB_PORT=5432
@@ -28,4 +31,4 @@ services:
       - NODE_ENV=development
       - SEED=true
     ports:
-      - '4000:4000'
+      - 4000:4000
