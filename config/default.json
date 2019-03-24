@@ -31,7 +31,7 @@
   "sequelize": {
     "database": "sensei_dev",
     "username": "dev_user",
-    "password": "test123",
+    "password": "123test",
     "dialect": "postgres",
     "host": "localhost",
     "port": "5432"
